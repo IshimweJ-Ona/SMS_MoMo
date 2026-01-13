@@ -16,7 +16,7 @@ This project is an enterprise full-stack application that processes MOMO SMS Tra
   - Frontend Dashboard: Static HTML/CSS/JS (charts & tables)
 
 > **Architecture Diagram:**
-(https://app.diagrams.net/#G1EjnItnHn04vEQYKvoszLRVkfsoYBMbjV#%7B%22pageId%22%3A%22ssyUKd4MVkcAJwYSX6I5%22%7D)
+(https://drive.google.com/file/d/1EjnItnHn04vEQYKvoszLRVkfsoYBMbjV/view?usp=sharing)
 
 ## Project Structure
 ```
