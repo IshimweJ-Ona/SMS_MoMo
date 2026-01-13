@@ -6,6 +6,7 @@ This project is an enterprise full-stack application that processes MOMO SMS Tra
 
 ## Team Members
 - Jonathan ISHIMWE
+- Andrew Thon Riem Alier
 
 ## High-Level System Architecture
 > The system is composed of the following major components:
