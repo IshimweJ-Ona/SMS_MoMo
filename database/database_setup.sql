@@ -1,6 +1,6 @@
 CREATE DATABASE IF NOT EXISTS momo_sms_analyzer;
 
-USE momo_sms_anaylzer;
+USE momo_sms_analyzer;
 
 -- USERS Table
 CREATE TABLE IF NOT EXISTS users (
