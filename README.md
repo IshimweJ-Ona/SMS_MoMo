@@ -5,8 +5,8 @@ This project is an enterprise full-stack application that processes MOMO SMS Tra
 
 
 ## Team Members
--Olivier Collins ITANGISHAKA
 - Jonathan ISHIMWE
+- Olivier Collins ITANGISHAKA
 - Andrew Thon Riem Alier
 
 ## High-Level System Architecture
