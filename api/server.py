@@ -2,6 +2,15 @@ from http.server import BaseHTTPRequestHandler, HTTPServer
 import json
 from urllib.parse import urlparse, parse_qs
 import os
+import base64
+
+# ============================================================
+# AUTHENTICATION CONFIGURATION
+# ============================================================
+# Valid credentials for Basic Authentication
+# In production, these should be stored securely (environment variables, database, etc.)
+VALID_USERNAME = "admin"
+VALID_PASSWORD = "password123"
 
 # Load transactions from JSON file
 TRANSACTIONS_FILE = os.path.join(os.path.dirname(__file__), "../dsa/transactions.json")
@@ -19,6 +28,64 @@ def save_transactions(transactions):
 transactions = load_transactions()
 
 class TransactionHandler(BaseHTTPRequestHandler):
+    
+    # ============================================================
+    # BASIC AUTHENTICATION IMPLEMENTATION
+    # ============================================================
+    def _authenticate(self):
+        """
+        Validates Basic Authentication credentials.
+        
+        Basic Auth format: "Basic base64(username:password)"
+        
+        Returns:
+            bool: True if authentication successful, False otherwise
+        """
+        auth_header = self.headers.get("Authorization")
+        
+        # Check if Authorization header exists
+        if not auth_header:
+            return False
+        
+        # Check if it's Basic Authentication
+        if not auth_header.startswith("Basic "):
+            return False
+        
+        try:
+            # Extract and decode the base64 credentials
+            # Format: "Basic base64_encoded_credentials"
+            encoded_credentials = auth_header.split(" ")[1]
+            decoded_credentials = base64.b64decode(encoded_credentials).decode("utf-8")
+            
+            # Split into username and password
+            # Format: "username:password"
+            username, password = decoded_credentials.split(":", 1)
+            
+            # Validate credentials
+            if username == VALID_USERNAME and password == VALID_PASSWORD:
+                return True
+            else:
+                return False
+                
+        except (IndexError, ValueError, base64.binascii.Error):
+            # Handle malformed Authorization header
+            return False
+    
+    def _send_unauthorized(self):
+        """
+        Sends 401 Unauthorized response with WWW-Authenticate header.
+        This prompts the client to provide authentication credentials.
+        """
+        self.send_response(401)
+        self.send_header("Content-Type", "application/json")
+        self.send_header("WWW-Authenticate", 'Basic realm="MoMo Transaction API"')
+        self.end_headers()
+        response = {
+            "error": "Unauthorized",
+            "message": "Invalid or missing authentication credentials. Please provide valid Basic Authentication."
+        }
+        self.wfile.write(json.dumps(response).encode())
+    
     def _set_headers(self, status=200):
         self.send_response(status)
         self.send_header("Content-Type", "application/json")
@@ -36,6 +103,13 @@ class TransactionHandler(BaseHTTPRequestHandler):
     
     # GET requests
     def do_GET(self):
+        # ============================================================
+        # AUTHENTICATION CHECK - All endpoints are protected
+        # ============================================================
+        if not self._authenticate():
+            self._send_unauthorized()
+            return
+        
         parsed_path = urlparse(self.path)
         tx_id = self._parse_id(parsed_path.path)
 
@@ -58,6 +132,13 @@ class TransactionHandler(BaseHTTPRequestHandler):
 
     # POST requests
     def do_POST(self):
+        # ============================================================
+        # AUTHENTICATION CHECK - All endpoints are protected
+        # ============================================================
+        if not self._authenticate():
+            self._send_unauthorized()
+            return
+        
         if self.path != "/transactions":
             self._set_headers(404)
             self.wfile.write(json.dumps({"error": "Endpoint not found"}).encode())
@@ -82,6 +163,13 @@ class TransactionHandler(BaseHTTPRequestHandler):
 
     # PUT requests
     def do_PUT(self):
+        # ============================================================
+        # AUTHENTICATION CHECK - All endpoints are protected
+        # ============================================================
+        if not self._authenticate():
+            self._send_unauthorized()
+            return
+        
         tx_id = self._parse_id(self.path)
         if not tx_id:
             self._set_headers(404)
@@ -111,6 +199,13 @@ class TransactionHandler(BaseHTTPRequestHandler):
 
     # DELETE requests
     def do_DELETE(self):
+        # ============================================================
+        # AUTHENTICATION CHECK - All endpoints are protected
+        # ============================================================
+        if not self._authenticate():
+            self._send_unauthorized()
+            return
+        
         tx_id = self._parse_id(self.path)
         if not tx_id:
             self._set_headers(404)
