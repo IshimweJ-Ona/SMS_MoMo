@@ -21,44 +21,71 @@ This project is an enterprise full-stack application that processes MOMO SMS Tra
 (https://drive.google.com/file/d/1EjnItnHn04vEQYKvoszLRVkfsoYBMbjV/view?usp=sharing)
 
 ## Project Structure
+
 ```
-.
-|--- README.md           
-|--- .env                  
-|--- requirements.txt     
-|--- index.html            
-|--- web/
-|   |---styles.css
-|   |---chart_handler.js
-|   |---assets/
-|--- data/
-|   |---raw/
-|   |   |___momo.xml
-|   |---processed/
-|   |   |___dashboard.json
-|   |---db.sqlite3
-|   |---logs/
-|   |   |___etl.log
-|   |   |___dead_letter/
-|   |---etl/
-|   |   |--- __init__.py
-|   |   |--- config.py
-|   |   |--- parse_xml.py
-|   |   |--- clean_normalize.py
-|   |   |--- categorize.py
-|   |   |--- load_db.py
-|   |   |--- run.py
-|   |---api/
-|   |   |--- __init__.py
-|   |   |--- app.py
-|   |   |--- db.py
-|   |   |--- schemas.py
-|   |---scripts/
-|   |   |--- run_etl.sh
-|   |   |--- export_json.sh
-|   |   |--- serve_frontend.sh
-|   |---tests/
-|   |   |--- test_parse_xml.py
-|   |   |--- test_clean_normalize.py
-|   |   |--- test_categorize.py
+SMS_MoMo/
+│
+├── api/
+│   └── server.py
+│
+├── database/
+│   ├── database_setup.sql
+│   └── crud_operations.sql
+│
+├── Docs/
+│   ├── BSE Team Task Sheet_[EWD_Database Design and Implementation_Cohort 4_Team].xlsx
+│   ├── erd_design.md
+│   └── erd_diagram.jpeg
+│
+├── dsa/
+│   ├── search_algorithms.py
+│   ├── xml_parser.py
+│   └── transactions.json
+│
+├── examples/
+│   ├── README.md
+│   ├── json_schemas.json
+│   └── sql_to_json_mapping.md
+│
+├── index.html
+├── modified_sms_v2.xml
+├── README.md
+└── requirements.txt
 ```
+
+## Prerequisites
+
+- Python 3.10+
+
+## How To Launch The App
+
+Run the following from the project root (`SMS_MoMo/`):
+
+1. Generate `transactions.json` from XML (optional if `dsa/transactions.json` already exists):
+
+```bash
+python dsa/xml_parser.py
+```
+
+2. Start the API server:
+
+```bash
+python api/server.py
+```
+
+3. Access the API at:
+
+- `http://localhost:8000/transactions`
+
+Use Basic Authentication:
+
+- Username: `admin`
+- Password: `password123`
+
+## Quick API Endpoints
+
+- `GET /transactions` - list all transactions
+- `GET /transactions/{id}` - get one transaction
+- `POST /transactions` - create transaction
+- `PUT /transactions/{id}` - update transaction
+- `DELETE /transactions/{id}` - delete transaction
