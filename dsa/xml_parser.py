@@ -1,6 +1,7 @@
 import xml.etree.ElementTree as ET
 import json
 import re
+from pathlib import Path
 
 def parse_sms_xml(xml_file):
     """
@@ -57,7 +58,8 @@ def save_to_json(data, output_file):
 
 
 if __name__ == '__main__':
-    xml_file = "../modified_sms_v2.xml"
+    # Resolve from project root regardless of current working directory.
+    xml_file = Path(__file__).resolve().parents[1] / "modified_sms_v2.xml"
     output_file = "transactions.json"
 
     transactions = parse_sms_xml(xml_file)
