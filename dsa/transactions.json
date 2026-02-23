@@ -16,14 +16,6 @@
         "raw_message": "TxId: 73214484437. Your payment of 1,000 RWF to Jane Smith 12845 has been completed at 2024-05-10 16:31:39. Your new balance: 1,000 RWF. Fee was 0 RWF.Kanda*182*16# wiyandikishe muri poromosiyo ya BivaMoMotima, ugire amahirwe yo gutsindira ibihembo bishimishije."
     },
     {
-        "id": 3,
-        "address": "M-Money",
-        "type": "payment",
-        "amount": "600",
-        "date": "10 May 2024 9:32:40 PM",
-        "raw_message": "TxId: 51732411227. Your payment of 600 RWF to Samuel Carter 95464 has been completed at 2024-05-10 21:32:32. Your new balance: 400 RWF. Fee was 0 RWF.Kanda*182*16# wiyandikishe muri poromosiyo ya BivaMoMotima, ugire amahirwe yo gutsindira ibihembo bishimishije."
-    },
-    {
         "id": 4,
         "address": "M-Money",
         "type": "bank deposit",
@@ -13526,5 +13518,35 @@
         "amount": "24900",
         "date": "16 Jan 2025 12:13:29 AM",
         "raw_message": "TxId: 37832903831. Your payment of 24,900 RWF to Robert Brown 23478 has been completed at 2025-01-16 00:13:22. Your new balance: 4,900 RWF. Fee was 0 RWF."
+    },
+    {
+        "type": "received",
+        "amount": 1500,
+        "date": "01 Feb 2026",
+        "message": "received payment from Andrew",
+        "id": 1692
+    },
+    {
+        "type": "received",
+        "amount": 1500,
+        "date": "01 Feb 2026",
+        "message": "received payment from Andrew",
+        "id": 1693
+    },
+    {
+        "address": "+250788999111",
+        "type": "received",
+        "amount": "25000",
+        "date": "Jan 18, 2025 10:00:00 AM",
+        "raw_message": "You have received 25,000 RWF.",
+        "id": 1694
+    },
+    {
+        "address": "+250783838833",
+        "type": "received",
+        "amount": "25000",
+        "date": "Feb 2, 2026 10:00:00 AM",
+        "raw_message": "You have received 25,000 RWF.",
+        "id": 1695
     }
 ]
